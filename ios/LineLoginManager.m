@@ -96,28 +96,11 @@ RCT_EXPORT_METHOD(getProfile:(RCTPromiseResolveBlock)resolve
 - (void)loginWithPermissions:(NSArray *)permissions
 {
     LineSDKLogin *shared = [LineSDKLogin sharedInstance];
-    
-    if ([shared isAuthorized])
-    {
-        [self getProfile:loginResolver
-                rejecter:loginRejecter];
-    } else if ([shared canLoginWithLineApp])
-    {
-        if (permissions && [permissions count] > 0) {
-            [shared startLoginWithPermissions:permissions];
-        } else
-        {
-            [shared startLogin];
-        }
+    if (permissions && [permissions count] > 0) {
+        [shared startLoginWithPermissions:permissions];
     } else
     {
-        if (permissions && [permissions count] > 0) {
-            [shared startWebLoginWithSafariViewController:YES];
-        } else
-        {
-            [shared startWebLoginWithSafariViewController:YES
-                                              permissions:permissions];
-        }
+        [shared startLogin];
     }
 }
 

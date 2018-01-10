@@ -34,7 +34,7 @@ public class LineLogin extends ReactContextBaseJavaModule {
             super.onActivityResult(activity, requestCode, resultCode, data);
             if (currentPromise != null) {
                 if (requestCode != REQUEST_CODE) {
-                    currentPromise.reject(ERROR, "Unsupported request");
+//                    currentPromise.reject(ERROR, "Unsupported request");
                     return;
                 }
                 loginResult = LineLoginApi.getLoginResultFromIntent(data);
@@ -144,7 +144,7 @@ public class LineLogin extends ReactContextBaseJavaModule {
         @Override
         protected void onPostExecute(LineApiResponse lineApiResponse) {
             if (lineApiResponse.isSuccess()) {
-                currentPromise.resolve(new Object());
+                currentPromise.resolve(null);
             } else {
                 currentPromise.reject(ERROR, lineApiResponse.getErrorData().toString());
             }
